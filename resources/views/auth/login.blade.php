@@ -3,14 +3,14 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     @auth
-        <div class="space-y-4 text-gray-700">
+        <div class="space-y-4 text-slate-700">
             <p class="text-sm">
                 {{ __('Hola, :name. Tu sesión está activa.', ['name' => Auth::user()->name]) }}
             </p>
 
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <a
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="underline text-sm text-indigo-600 hover:text-indigo-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ Auth::user()->rol === 'admin' ? route('admin.users.index') : route('profile.edit') }}"
                 >
                     {{ __('Ir a mi panel') }}
@@ -51,7 +51,7 @@
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    <a class="underline text-sm text-indigo-600 hover:text-indigo-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
