@@ -67,7 +67,7 @@
                                                 <form method="POST" action="{{ route('admin.users.destroy', $user) }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <x-danger-button class="text-sm" onclick="return confirm('{{ __('¿Eliminar este usuario?') }}')">
+                                                    <x-danger-button class="text-sm">
                                                         {{ __('Eliminar') }}
                                                     </x-danger-button>
                                                 </form>
