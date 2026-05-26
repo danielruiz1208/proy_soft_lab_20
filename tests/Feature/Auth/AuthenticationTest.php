@@ -22,7 +22,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'user' => $user->user,
             'password' => 'password',
         ]);
 
@@ -35,7 +35,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create();
 
         $this->post('/login', [
-            'email' => $user->email,
+            'user' => $user->user,
             'password' => 'wrong-password',
         ]);
 
@@ -50,5 +50,31 @@ class AuthenticationTest extends TestCase
 
         $this->assertGuest();
         $response->assertRedirect('/');
+    }
+
+    public function test_dashboard_redirects_admins_to_user_management(): void
+    {
+        $admin = User::factory()->create([
+            'rol' => 'admin',
+        ]);
+
+        $response = $this
+            ->actingAs($admin)
+            ->get('/dashboard');
+
+        $response->assertRedirect(route('admin.users.index', absolute: false));
+    }
+
+    public function test_dashboard_redirects_users_to_profile(): void
+    {
+        $user = User::factory()->create([
+            'rol' => 'usuario',
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/dashboard');
+
+        $response->assertRedirect(route('profile.edit', absolute: false));
     }
 }
