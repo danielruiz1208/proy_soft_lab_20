@@ -6,11 +6,20 @@ use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect('/login');
-})->name('home');
+/*
+|--------------------------------------------------------------------------
+| HOME
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/dashboard', function () {
+Route::redirect('/', '/login')->name('home');
+
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->get('/dashboard', function () {
 
     $user = Auth::user();
 
@@ -19,20 +28,40 @@ Route::get('/dashboard', function () {
     }
 
     return redirect()->route('profile.edit');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard');
 
+/*
+|--------------------------------------------------------------------------
+| PERFIL (usuario normal)
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])
+    Route::get('/perfil', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 });
 
+/*
+|--------------------------------------------------------------------------
+| ADMIN (ABM usuarios)
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth', EnsureUserIsAdmin::class])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
 
         Route::resource('users', AdminUserController::class);
+
+        // /admin redirige a usuarios
+        Route::get('/', function () {
+            return redirect()->route('admin.users.index');
+        });
     });
 
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES (Breeze)
+|--------------------------------------------------------------------------
+*/
 require __DIR__ . '/auth.php';

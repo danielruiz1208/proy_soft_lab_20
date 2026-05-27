@@ -1,86 +1,77 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Usuario
-        </h2>
+
+        <div class="rounded-3xl border border-slate-700 bg-slate-900/70 p-8 shadow-2xl backdrop-blur-xl">
+
+            <h2 class="text-4xl font-extrabold text-white">
+                Editar Usuario
+            </h2>
+
+            <p class="mt-3 text-slate-300">
+                Modifica los datos del usuario
+            </p>
+
+        </div>
+
     </x-slot>
 
     <div class="py-12">
 
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl px-4">
 
-            <div class="bg-white shadow rounded-lg p-6">
+            <form method="POST" action="{{ route('admin.users.update', $user) }}"
+                class="space-y-6 rounded-3xl border border-slate-700 bg-slate-900/70 p-8 shadow-2xl backdrop-blur-xl">
 
-                <form method="POST" action="{{ route('admin.users.update', $user) }}">
+                @csrf
+                @method('PUT')
 
-                    @csrf
-                    @method('PUT')
+                <input class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="name"
+                    value="{{ $user->name }}">
 
-                    <div class="mb-4">
-                        <label>Nombre</label>
+                <input class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="user"
+                    value="{{ $user->user }}">
 
-                        <input type="text" name="name" value="{{ $user->name }}" class="border rounded w-full p-2"
-                            required>
-                    </div>
+                <input class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="email"
+                    value="{{ $user->email }}">
 
-                    <div class="mb-4">
-                        <label>Usuario</label>
+                <select name="rol" class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white">
 
-                        <input type="text" name="user" value="{{ $user->user }}"
-                            class="border rounded w-full p-2" required>
-                    </div>
+                    <option value="usuario" {{ $user->rol == 'usuario' ? 'selected' : '' }}>
+                        Usuario
+                    </option>
 
-                    <div class="mb-4">
-                        <label>Email</label>
+                    <option value="admin" {{ $user->rol == 'admin' ? 'selected' : '' }}>
+                        Administrador
+                    </option>
 
-                        <input type="email" name="email" value="{{ $user->email }}"
-                            class="border rounded w-full p-2" required>
-                    </div>
+                </select>
 
-                    <div class="mb-4">
-                        <label>Rol</label>
+                <input type="password" class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="password"
+                    placeholder="Nueva contraseña">
 
-                        <select name="rol" class="border rounded w-full p-2">
+                <input type="password" class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white"
+                    name="password_confirmation" placeholder="Confirmar contraseña">
 
-                            <option value="usuario" {{ $user->rol == 'usuario' ? 'selected' : '' }}>
-                                Usuario
-                            </option>
+                <div class="flex justify-between">
 
-                            <option value="admin" {{ $user->rol == 'admin' ? 'selected' : '' }}>
-                                Administrador
-                            </option>
-
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label>Nueva Contraseña</label>
-
-                        <input type="password" name="password" class="border rounded w-full p-2">
-                    </div>
-
-                    <div class="mb-4">
-                        <label>Confirmar Contraseña</label>
-
-                        <input type="password" name="password_confirmation" class="border rounded w-full p-2">
-                    </div>
-
-                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">
-
-                        Actualizar
-
-                    </button>
-
-                    <a href="{{ route('admin.users.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">
+                    <a href="{{ route('admin.users.index') }}"
+                        class="rounded-xl bg-slate-700 px-5 py-3 text-sm font-bold text-white">
 
                         Volver
 
                     </a>
 
-                </form>
+                    <button
+                        class="rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 px-6 py-3 text-sm font-bold text-white">
 
-            </div>
+                        Actualizar
+
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 

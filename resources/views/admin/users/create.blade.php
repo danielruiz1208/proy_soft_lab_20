@@ -1,77 +1,71 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Crear Usuario
-        </h2>
+
+        <div class="rounded-3xl border border-slate-700 bg-slate-900/70 p-8 shadow-2xl backdrop-blur-xl">
+
+            <h2 class="text-4xl font-extrabold text-white">
+                Crear Usuario
+            </h2>
+
+            <p class="mt-3 text-slate-300">
+                Registro de nuevos usuarios
+            </p>
+
+        </div>
+
     </x-slot>
 
     <div class="py-12">
 
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl px-4">
 
-            <div class="bg-white shadow rounded-lg p-6">
+            <form method="POST" action="{{ route('admin.users.store') }}"
+                class="space-y-6 rounded-3xl border border-slate-700 bg-slate-900/70 p-8 shadow-2xl backdrop-blur-xl">
 
-                <form method="POST" action="{{ route('admin.users.store') }}">
+                @csrf
 
-                    @csrf
+                <input class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="name" placeholder="Nombre"
+                    required>
 
-                    <div class="mb-4">
-                        <label>Nombre</label>
+                <input class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="user" placeholder="Usuario"
+                    required>
 
-                        <input type="text" name="name" class="border rounded w-full p-2" required>
-                    </div>
+                <input class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="email" placeholder="Email"
+                    required>
 
-                    <div class="mb-4">
-                        <label>Usuario</label>
+                <select name="rol" class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white">
 
-                        <input type="text" name="user" class="border rounded w-full p-2" required>
-                    </div>
+                    <option value="usuario">Usuario</option>
+                    <option value="admin">Administrador</option>
 
-                    <div class="mb-4">
-                        <label>Email</label>
+                </select>
 
-                        <input type="email" name="email" class="border rounded w-full p-2" required>
-                    </div>
+                <input type="password" class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white" name="password"
+                    placeholder="Contraseña" required>
 
-                    <div class="mb-4">
-                        <label>Rol</label>
+                <input type="password" class="w-full rounded-xl bg-slate-800 px-4 py-3 text-white"
+                    name="password_confirmation" placeholder="Confirmar contraseña" required>
 
-                        <select name="rol" class="border rounded w-full p-2">
+                <div class="flex justify-between">
 
-                            <option value="usuario">Usuario</option>
-                            <option value="admin">Administrador</option>
-
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label>Contraseña</label>
-
-                        <input type="password" name="password" class="border rounded w-full p-2" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label>Confirmar Contraseña</label>
-
-                        <input type="password" name="password_confirmation" class="border rounded w-full p-2" required>
-                    </div>
-
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-
-                        Guardar
-
-                    </button>
-
-                    <a href="{{ route('admin.users.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">
+                    <a href="{{ route('admin.users.index') }}"
+                        class="rounded-xl bg-slate-700 px-5 py-3 text-sm font-bold text-white">
 
                         Volver
 
                     </a>
 
-                </form>
+                    <button
+                        class="rounded-xl bg-gradient-to-r from-cyan-600 to-emerald-600 px-6 py-3 text-sm font-bold text-white">
 
-            </div>
+                        Guardar
+
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 
