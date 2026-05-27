@@ -10,6 +10,14 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_home_screen_shows_login_for_guests(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+        $response->assertViewIs('auth.login');
+    }
+
     public function test_login_screen_can_be_rendered(): void
     {
         $response = $this->get('/login');
@@ -76,5 +84,19 @@ class AuthenticationTest extends TestCase
             ->get('/dashboard');
 
         $response->assertRedirect(route('profile.edit', absolute: false));
+    }
+
+    public function test_home_screen_shows_full_name_when_authenticated(): void
+    {
+        $user = User::factory()->create([
+            'name' => 'Juan Perez',
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/');
+
+        $response->assertOk();
+        $response->assertSee('Juan Perez');
     }
 }
