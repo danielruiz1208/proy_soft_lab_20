@@ -23,7 +23,7 @@
             </p>
 
             <h1 class="mt-3 text-4xl font-extrabold text-white">
-                Ingreso al Sistema
+                DANIEL RUIZ VARGAS
             </h1>
 
             <p class="mt-3 text-sm leading-relaxed text-slate-300">
