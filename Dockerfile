@@ -26,4 +26,4 @@ RUN ls -la public/build && ls -la public/build/assets && cat public/build/manife
 
 EXPOSE 8080
 
-CMD php artisan optimize:clear && php artisan migrate --force && php -S 0.0.0.0:${PORT:-8080} -t public server.php
+CMD php artisan optimize:clear && php artisan migrate --force && php artisan db:seed --class=AdminSeeder --force && php -S 0.0.0.0:${PORT:-8080} -t public server.php
