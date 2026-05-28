@@ -22,6 +22,8 @@ RUN npm install
 
 RUN npm run build
 
+RUN ls -la public/build && ls -la public/build/assets && cat public/build/manifest.json
+
 EXPOSE 8080
 
 CMD php artisan optimize:clear && php artisan migrate --force && php -S 0.0.0.0:${PORT:-8080} server.php
