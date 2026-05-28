@@ -9,9 +9,11 @@ cmds = [
 
 [phases.build]
 cmds = [
+  "rm -rf public/build",
   "npm run build",
   "ls -la public/build",
-  "ls -la public/build/assets"
+  "ls -la public/build/assets",
+  "cat public/build/manifest.json"
 ]
 
 [start]
